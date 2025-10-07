@@ -1,18 +1,29 @@
 CC = gcc
-CFLAGS = -std=c99 -Wall -Wextra
-INLUDE_PATH = include
-LIB_PATH = lib
-LIBS = -lraylib -lgdi32 -lwinmm
+CFLAGS = -std=c99 -Wall -Wextra -Iinclude
+LDFLAGS = -Llib -lraylib
+RLIBS = -lGL -lm -lpthread -ldl
 
-TARGET = main.exe
+TARGET = bin/main
+
+SRCS = $(wildcard src/*.c)
+OBJS = $(patsubst src/%.c, obj/%.o, $(SRCS))
 
 all: $(TARGET)
 
-$(TARGET):
-	$(CC) -o $(TARGET) src/*.c -I$(INLUDE_PATH) -L$(LIB_PATH) $(CFLAGS) $(LIBS)
+$(TARGET): $(OBJS) | bin
+	$(CC) -o $@ $(OBJS) $(LDFLAGS) $(RLIBS)
+
+obj/%.o: src/%.c | obj
+	$(CC) $(CFLAGS) -c $< -o $@
+
+obj:
+	mkdir -p obj
+
+bin:
+	mkdir -p bin
 
 run: all
-	@./$(TARGET)
+	./$(TARGET)
 
 clean:
-	@del $(TARGET)
+	rm -rf obj bin
