@@ -3,7 +3,7 @@
 #include "tile.h"
 #include "tileset.h"
 
-tile_data_t global_tile_types[4];
+static tile_data_t global_tile_types[4];
 
 void init_tile_types()
 {
@@ -35,10 +35,7 @@ tile_t tile_create(tile_id_t id)
 void tile_draw(tile_t tile, int x, int y)
 {
     if (global_tile_types[tile.id].solid == false)
-    {
-        DrawRectangle(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, SKYBLUE);
         return;
-    }
     
     tileset_draw_id(global_tile_types[tile.id].texture_id, x, y);
 }
