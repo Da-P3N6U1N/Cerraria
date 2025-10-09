@@ -22,7 +22,7 @@ obj:
 bin:
 	mkdir -p bin
 
-run: all
+run: clean all
 	./$(TARGET)
 
 clean:

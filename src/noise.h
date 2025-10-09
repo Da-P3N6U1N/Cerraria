@@ -16,6 +16,7 @@ typedef float (*smooth_function)(float);
 typedef struct
 {
     float* rand_values;
+    int seed;
     smooth_function smooth_func;
 } value_noise_t;
 

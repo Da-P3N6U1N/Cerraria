@@ -3,10 +3,10 @@
 camera_t camera_make(float x, float y)
 {
     Camera2D camera = { 0 };
-    camera.target = (Vector2){ x + 20.0f, y + 20.0f };
-    camera.offset = (Vector2){ 0, 0 };
+    camera.target = (Vector2){ x, y };
+    camera.offset = (Vector2){ WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f };
     camera.rotation = 0.0f;
-    camera.zoom = 1.0f;
+    camera.zoom = 1.5f;
 
     camera_t c; c.camera = camera;
 

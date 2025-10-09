@@ -26,10 +26,9 @@ value_noise_t value_noise_create(int size, smooth_function func, int seed)
 {
     if (seed == 0) seed = time(NULL);
 
-    srand((unsigned int)seed);
-
     value_noise_t noise;
 
+    noise.seed = seed;
     noise.smooth_func = func;
     if (func == NULL) noise.smooth_func = default_smooth_func;
 
@@ -43,6 +42,8 @@ value_noise_t value_noise_create(int size, smooth_function func, int seed)
 
 float value_noise_eval(value_noise_t* noise, float x)
 {
+    srand((unsigned int)noise->seed);
+
     int xMin = (int)x;
     return lerp(noise->rand_values[xMin], noise->rand_values[xMin + 1], noise->smooth_func(x - xMin));
 }

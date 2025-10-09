@@ -1,15 +1,17 @@
 #include "constants.h"
 #include <raylib.h>
-#include "tile.h"
 #include "tileset.h"
+#include "tile.h"
+#include "tiles/all_tiles.h"
 
 static tile_data_t global_tile_types[4];
+
 
 void init_tile_types()
 {
     global_tile_types[TILE_AIR].name = "Air";
     global_tile_types[TILE_AIR].solid = false;
-
+    
     global_tile_types[TILE_DIRT].name = "Dirt";
     global_tile_types[TILE_DIRT].solid = true;
     global_tile_types[TILE_DIRT].texture_id = 0;
@@ -18,9 +20,10 @@ void init_tile_types()
     global_tile_types[TILE_STONE].solid = true;
     global_tile_types[TILE_STONE].texture_id = 1;
 
-    global_tile_types[TILE_WOOD].name = "Wood";
-    global_tile_types[TILE_WOOD].solid = true;
-    global_tile_types[TILE_WOOD].texture_id = 2;
+    global_tile_types[TILE_GRASS].name = "Grass";
+    global_tile_types[TILE_GRASS].solid = true;
+    global_tile_types[TILE_GRASS].texture_id = 2;
+    global_tile_types[TILE_GRASS].render = grass_special_render;
 
     return;
 }
