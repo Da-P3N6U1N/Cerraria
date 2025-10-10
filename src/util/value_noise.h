@@ -2,14 +2,12 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include "lerp.h"
+#include "random.h"
 
-// TODO: LATER WORK ON PERLIN NOISE!!!
-
-// smoothening functions
-float lerp(float lo, float hi, float t);
-float default_smooth_func(float x);
 float cosine_interpolation(float x);
 float smoothstep(float x);
+float default_smooth_func(float x);
 
 typedef float (*smooth_function)(float);
 

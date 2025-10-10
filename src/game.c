@@ -16,7 +16,7 @@ void generate_map()
 {
     for (int i = 0; i < TILE_X_AMOUNT; i++)
     {
-        int y = (int)value_noise_advanced_eval(&dirt_noise, i, 0.1f, 10) + TILE_Y_AMOUNT / 2;
+        int y = (int)(value_noise_advanced_eval(&dirt_noise, i, 0.08f, 12)) + TILE_Y_AMOUNT / 2;
 
         for (int j = TILE_Y_AMOUNT - 1; j > y; j--)
             chunk_map_set_tile(&map, i, j, tile_create(TILE_DIRT));
@@ -63,6 +63,8 @@ void game_render()
     chunk_map_render(&map, 0, 0, &camera, 3, 2);
     
     EndMode2D();
+
+    DrawFPS(10, 10);
 
     EndDrawing();
 }

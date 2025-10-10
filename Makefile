@@ -5,8 +5,9 @@ RLIBS = -lGL -lm -lpthread -ldl
 
 TARGET = bin/main
 
-SRCS = $(wildcard src/*.c)
-OBJS = $(patsubst src/%.c, obj/%.o, $(SRCS))
+SRCS := $(shell find src -type f -name '*.c')
+
+OBJS := $(patsubst src/%.c, obj/%.o, $(SRCS))
 
 all: $(TARGET)
 
@@ -14,6 +15,7 @@ $(TARGET): $(OBJS) | bin
 	$(CC) -o $@ $(OBJS) $(LDFLAGS) $(RLIBS)
 
 obj/%.o: src/%.c | obj
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 obj:

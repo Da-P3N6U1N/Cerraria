@@ -1,11 +1,5 @@
-#include "noise.h"
-#include "constants.h"
+#include "value_noise.h"
 #include <math.h>
-
-float lerp(float lo, float hi, float t)
-{
-    return lo * (1 - t) + hi * t;
-}
 
 float default_smooth_func(float x)
 {
@@ -14,7 +8,7 @@ float default_smooth_func(float x)
 
 float cosine_interpolation(float x)
 {
-    return (1 - cos(x * M_PI)) * 0.5f;
+    return (1 - cos(x * 3.14159f)) * 0.5f;
 }
 
 float smoothstep(float x)
@@ -35,7 +29,7 @@ value_noise_t value_noise_create(int size, smooth_function func, int seed)
     noise.rand_values = (float*)malloc(sizeof(float) * size);
 
     for (int i = 0; i < size; i++)
-        noise.rand_values[i] = (float)rand() / (float)RAND_MAX;
+        noise.rand_values[i] = util_drand48();
 
     return noise;
 }
