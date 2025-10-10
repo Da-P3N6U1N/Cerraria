@@ -52,3 +52,8 @@ float value_noise_advanced_eval(value_noise_t* noise, float x, float frequency, 
 {
     return amplitude * value_noise_eval(noise, x * frequency);
 }
+
+void value_noise_destroy(value_noise_t* noise)
+{
+    free(noise->rand_values);
+}

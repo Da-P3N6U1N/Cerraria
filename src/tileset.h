@@ -10,3 +10,4 @@ typedef struct
 
 void tileset_create(const char* path, int tile_width);
 void tileset_draw_id(int id, float x, float y);
+void tileset_free();

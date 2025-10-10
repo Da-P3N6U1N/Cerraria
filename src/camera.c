@@ -13,7 +13,6 @@ camera_t camera_make(float x, float y)
     return c;
 }
 
-
 void camera_set_pos(camera_t *c, float x, float y)
 {
     c->camera.target = (Vector2){ x, y };

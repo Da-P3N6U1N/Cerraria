@@ -31,3 +31,8 @@ void tileset_draw_id(int texture_id, float x, float y)
 
     DrawTextureRec(tileset.texture, source, target, WHITE);
 }
+
+void tileset_free()
+{
+    UnloadTexture(tileset.texture);
+}

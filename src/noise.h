@@ -21,6 +21,7 @@ typedef struct
 } value_noise_t;
 
 value_noise_t value_noise_create(int size, smooth_function func, int seed);
+void value_noise_destroy(value_noise_t* noise);
 
 float value_noise_eval(value_noise_t* noise, float x);
 float value_noise_advanced_eval(value_noise_t* noise, float x, float frequency, float amplitude);
