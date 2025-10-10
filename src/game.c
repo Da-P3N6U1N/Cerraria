@@ -1,14 +1,9 @@
 #include <stdlib.h>
 #include <time.h>
-#include "game.h"
-#include "constants.h"
-#include "tile.h"
-#include <raylib.h>
-#include "tileset.h"
-#include "camera.h"
-#include "noise.h"
-#include "chunk_map.h"
 #include <stdio.h>
+#include <raylib.h>
+#include "game.h"
+#include "engine.h"
 
 camera_t camera;
 chunk_map_t map;
@@ -17,6 +12,19 @@ value_noise_t dirt_noise;
 
 const int SEED = 67;
 
+void generate_map()
+{
+    for (int i = 0; i < TILE_X_AMOUNT; i++)
+    {
+        int y = (int)value_noise_advanced_eval(&dirt_noise, i, 0.1f, 10) + TILE_Y_AMOUNT / 2;
+
+        for (int j = TILE_Y_AMOUNT - 1; j > y; j--)
+            chunk_map_set_tile(&map, i, j, tile_create(TILE_DIRT));
+
+        chunk_map_set_tile(&map, i, y, tile_create(TILE_GRASS));
+    }
+}
+
 void game_init()
 {
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);  
@@ -24,20 +32,12 @@ void game_init()
 
     init_tile_types();
     tileset_create("res/tileset.png", 3);
-    camera = camera_make(TILE_SIZE * (TILE_X_AMOUNT / 2), (WINDOW_HEIGHT / 2));
+    camera = camera_make(TILE_SIZE * (TILE_X_AMOUNT / 2), (WINDOW_HEIGHT / 2), (WINDOW_WIDTH / 2), TILE_SIZE * TILE_X_AMOUNT - (WINDOW_WIDTH / 2), (WINDOW_HEIGHT / 2), TILE_SIZE * TILE_Y_AMOUNT - (WINDOW_HEIGHT / 2));
     dirt_noise = value_noise_create(TILE_X_AMOUNT, smoothstep, SEED);
 
     map = chunk_map_create((TILE_X_AMOUNT + CHUNK_SIZE - 1) / CHUNK_SIZE, (TILE_Y_AMOUNT + CHUNK_SIZE - 1) / CHUNK_SIZE);
 
-    for (int i = 0; i < TILE_X_AMOUNT; i++)
-    {
-        int y = (int)value_noise_advanced_eval(&dirt_noise, i, 0.1f, 10) + TILE_Y_AMOUNT / 3;
-
-        for (int j = TILE_Y_AMOUNT - 1; j > y; j--)
-            chunk_map_set_tile(&map, i, j, tile_create(TILE_DIRT));
-
-        chunk_map_set_tile(&map, i, y, tile_create(TILE_GRASS));
-    }
+    generate_map();
 }
 
 bool game_update(double deltaTime)

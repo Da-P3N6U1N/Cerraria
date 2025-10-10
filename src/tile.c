@@ -2,7 +2,6 @@
 #include <raylib.h>
 #include "tileset.h"
 #include "tile.h"
-#include "tiles/all_tiles.h"
 
 static tile_data_t global_tile_types[4];
 
@@ -23,7 +22,6 @@ void init_tile_types()
     global_tile_types[TILE_GRASS].name = "Grass";
     global_tile_types[TILE_GRASS].solid = true;
     global_tile_types[TILE_GRASS].texture_id = 2;
-    global_tile_types[TILE_GRASS].render = grass_special_render;
 
     return;
 }
